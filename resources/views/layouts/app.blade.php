@@ -62,7 +62,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         @auth
-                        <li class="active"><a href="{{ url('admin/user/index') }}">管理员列表</a></li>
+                        <li><a href="{{ url('admin/user/index') }}">管理员列表</a></li>
                         <li><a href="#">角色列表</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -70,7 +70,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li >
-                                    <a href="{{ route('logout') }}">
+                                    <a href="{{ url('admin/article/index') }}">
                                         文章列表
                                     </a>
                                 </li>

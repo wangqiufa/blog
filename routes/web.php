@@ -38,6 +38,7 @@ Route::get('admin/article/index', 'admin\ArticleController@index');
 Route::get('admin/article/add', 'admin\ArticleController@add');
 Route::post('admin/article/addDo', 'admin\ArticleController@addDo');
 Route::get('admin/article/edit/{id}', 'admin\ArticleController@edit')->where('id', '[0-9]+');
+Route::post('admin/article/editDo', 'admin\ArticleController@editDo');
 
 Route::get('upload/test', 'common\UploadController@test');
 Route::post('upload/img', 'common\UploadController@img');

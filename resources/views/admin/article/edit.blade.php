@@ -40,10 +40,11 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" onsubmit="beforeSubmit()" action="{{ url('admin/article/addDo') }}">
+                    <form class="form-horizontal" method="POST" onsubmit="beforeSubmit()" action="{{ url('admin/article/editDo') }}">
                         {{ csrf_field() }}
                         <input id="content" name="content" type="hidden" value="">
-                        <input id="title_img" name="title_img" type="hidden" value="">
+                        <input id="title_img" name="title_img" type="hidden" value="{{ $info->title_img }}">
+                        <input type="hidden" name="id" value="{{ $info->id }}">
 
                         <div class="form-group">
                             <label for="pid" class="col-md-4 control-label">分类</label>
@@ -59,7 +60,9 @@
                             <div class="col-md-6">
                                 <select name='lable_id' class='form-control'>
                                     @foreach ($lableList as $lable)
-                                        <option value="{{ $lable->id }}">{{ $lable->name }}</option>
+                                        <option value="{{ $lable->id }}" @if ($lable->id == $info->lable_id) selected @endif>
+                                            {{ $lable->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -69,7 +72,7 @@
                             <label for="title" class="col-md-4 control-label">标题</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" required autofocus>
+                                <input id="title" type="text" class="form-control" name="title" value="{{ $info->title }}" required>
 
                                 @if ($errors->has('title'))
                                     <span class="help-block">
@@ -86,7 +89,7 @@
 
                                 <p><input type="file" id="file1" name="picture" class="custom-file-input" /></p>
                                 <button class="btn btn-success fileinput-button" id="upload_buttom" type="button">上传</button>
-                                <p><img id="img1" src="" /></p>
+                                <p><img id="img1" src="{{ $info->title_img }}" /></p>
 
                             </div>
 
@@ -96,7 +99,7 @@
                             <label for="description" class="col-md-4 control-label">描述</label>
 
                             <div class="col-md-6">
-                                <textarea id="description" class="form-control" rows="3" name="description" required>{{ old('description') }}</textarea>
+                                <textarea id="description" class="form-control" rows="3" name="description" required>{{ $info->description }}</textarea>
 
                                 @if ($errors->has('description'))
                                     <span class="help-block">
@@ -162,7 +165,7 @@
                                 </div>
 
                                 <div id="editor" style="overflow:scroll; max-height:300px; min-height: 100px;">
-                                    Go ahead
+                                    {!! $info->content !!}
                                 </div>
                             </div>
                         </div>
@@ -171,7 +174,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    添 加
+                                    修 改
                                 </button>
                             </div>
                         </div>

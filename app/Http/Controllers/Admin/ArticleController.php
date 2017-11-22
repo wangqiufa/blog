@@ -71,7 +71,29 @@ class ArticleController extends Controller
         $info = Article::find($id);
         $cateAll = $this->articleCateService->getCategarySelect(0, $info->cate_id, '', 'cate_id');
         $lableList = ArticleLable::get();
-        return view('admin.article.edit', compact("cateAll", "lableList"));
+        return view('admin.article.edit', compact("info", "cateAll", "lableList"));
+    }
+
+    public function editDo(Request $request)
+    {
+        $params = $request->all();
+        $this->validator($params, 1)->validate();
+
+        if ($params['id'] > 0) {
+            $info = Article::find($params['id']);
+            $info->cate_id = $params['cate_id'];
+            $info->lable_id = $params['lable_id'];
+            $info->title = $params['title'];
+            $info->title_img = $params['title_img'];
+            $info->description = $params['description'];
+            $info->content = $params['content'];
+            $info->save();
+            $this->setMessage($request);
+        } else {
+            $this->setMessage($request, 'danger', '操作失败！');
+        }
+
+        return redirect('admin/article/edit/' . $params['id']);
     }
 
     protected function validator(array $data, $isEdit = 0)
